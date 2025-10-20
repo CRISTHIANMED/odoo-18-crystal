@@ -7,6 +7,7 @@ services:
       - db
     ports:
       - "8069:8069"
+      - "8072:8072"  # ✅ Puerto para longpolling
     volumes:
       - odoo-web-data:/var/lib/odoo
       - ./config:/etc/odoo
@@ -16,7 +17,7 @@ services:
       - HOST=db
       - USER=odoo
       - PASSWORD=odoo
-    command: odoo -d odoo --db_user=odoo --db_password=odoo -i base
+    command: odoo
     restart: always
 
   db:

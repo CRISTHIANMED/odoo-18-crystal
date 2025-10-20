@@ -1,0 +1,21 @@
+<odoo>
+  <record id="view_partner_form_restrict_company" model="ir.ui.view">
+    <field name="name">res.partner.form.restrict.company</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="arch" type="xml">
+
+      <!-- Campo tipo de contacto (empresa/persona) -->
+      <xpath expr="//field[@name='company_type']" position="attributes">
+        <!-- visible/usable solo si NO está en el grupo -->
+        <attribute name="groups">!contacts_company_restrict.group_restrict_company</attribute>
+      </xpath>
+
+      <!-- Campo booleano is_company -->
+      <xpath expr="//field[@name='is_company']" position="attributes">
+        <attribute name="groups">!contacts_company_restrict.group_restrict_company</attribute>
+      </xpath>
+
+    </field>
+  </record>
+</odoo>

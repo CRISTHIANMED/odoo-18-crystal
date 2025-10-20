@@ -1,0 +1,10 @@
+<odoo noupdate="1">
+    <!-- Vincula el grupo EXISTENTE (id interno = 124) a un XML ID -->
+    <record id="group_contact_restrictions" model="ir.model.data">
+        <field name="name">group_contact_restrictions</field>
+        <field name="model">res.groups</field>
+        <field name="module">contacts_company_restrict</field>
+        <field name="res_id" eval="124"/>  <!-- tu grupo ya creado -->
+        <field name="noupdate">1</field>
+    </record>
+</odoo>

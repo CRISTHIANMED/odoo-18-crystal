@@ -1,0 +1,233 @@
+<odoo>
+
+    <!-- =========================================================
+         ADMIN TÉCNICO: acceso completo (R/C/W/D) en todos los modelos
+         ========================================================= -->
+
+    <record id="rule_admin_all_res_partner_category" model="ir.rule">
+        <field name="name">[ADMIN] Todo - Etiquetas contacto</field>
+        <field name="model_id" ref="base.model_res_partner_category"/>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="True"/><field name="perm_write" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_admin_all_res_partner_title" model="ir.rule">
+        <field name="name">[ADMIN] Todo - Títulos contacto</field>
+        <field name="model_id" ref="base.model_res_partner_title"/>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="True"/><field name="perm_write" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_admin_all_res_partner_industry" model="ir.rule">
+        <field name="name">[ADMIN] Todo - Industrias</field>
+        <field name="model_id" ref="base.model_res_partner_industry"/>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="True"/><field name="perm_write" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_admin_all_res_country" model="ir.rule">
+        <field name="name">[ADMIN] Todo - Países</field>
+        <field name="model_id" ref="base.model_res_country"/>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="True"/><field name="perm_write" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_admin_all_res_country_state" model="ir.rule">
+        <field name="name">[ADMIN] Todo - Estados/Departamentos</field>
+        <field name="model_id" ref="base.model_res_country_state"/>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="True"/><field name="perm_write" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_admin_all_res_country_group" model="ir.rule">
+        <field name="name">[ADMIN] Todo - Grupo de país</field>
+        <field name="model_id" ref="base.model_res_country_group"/>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="True"/><field name="perm_write" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_admin_all_res_bank" model="ir.rule">
+        <field name="name">[ADMIN] Todo - Bancos</field>
+        <field name="model_id" ref="base.model_res_bank"/>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="True"/><field name="perm_write" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_admin_all_res_partner_bank" model="ir.rule">
+        <field name="name">[ADMIN] Todo - Ctas bancarias</field>
+        <field name="model_id" ref="base.model_res_partner_bank"/>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="True"/><field name="perm_write" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+
+    <!-- =========================================================
+         RESTRICCIONES DE CONTACTOS (grupo: contacts_company_restrict.group_contact_restrictions)
+         - Propios (create_uid=user.id): R/C/W/D
+         - UID 1 y 2: solo lectura
+         ========================================================= -->
+
+    <!-- ===== Etiquetas de contacto (res.partner.category) ===== -->
+    <record id="rule_rc_full_own_res_partner_category" model="ir.rule">
+        <field name="name">[RC] Propios (full) - Etiquetas contacto</field>
+        <field name="model_id" ref="base.model_res_partner_category"/>
+        <field name="groups" eval="[(4, ref('contacts_company_restrict.group_contact_restrictions'))]"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="True"/><field name="perm_write" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="rule_rc_read_uid1_2_res_partner_category" model="ir.rule">
+        <field name="name">[RC] UID=1,2 (read) - Etiquetas contacto</field>
+        <field name="model_id" ref="base.model_res_partner_category"/>
+        <field name="groups" eval="[(4, ref('contacts_company_restrict.group_contact_restrictions'))]"/>
+        <field name="domain_force">[('create_uid', 'in', [1, 2])]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="False"/><field name="perm_write" eval="False"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- ===== Títulos de contacto (res.partner.title) ===== -->
+    <record id="rule_rc_full_own_res_partner_title" model="ir.rule">
+        <field name="name">[RC] Propios (full) - Títulos contacto</field>
+        <field name="model_id" ref="base.model_res_partner_title"/>
+        <field name="groups" eval="[(4, ref('contacts_company_restrict.group_contact_restrictions'))]"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="True"/><field name="perm_write" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="rule_rc_read_uid1_2_res_partner_title" model="ir.rule">
+        <field name="name">[RC] UID=1,2 (read) - Títulos contacto</field>
+        <field name="model_id" ref="base.model_res_partner_title"/>
+        <field name="groups" eval="[(4, ref('contacts_company_restrict.group_contact_restrictions'))]"/>
+        <field name="domain_force">[('create_uid', 'in', [1, 2])]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="False"/><field name="perm_write" eval="False"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- ===== Industrias (res.partner.industry) ===== -->
+    <record id="rule_rc_full_own_res_partner_industry" model="ir.rule">
+        <field name="name">[RC] Propios (full) - Industrias</field>
+        <field name="model_id" ref="base.model_res_partner_industry"/>
+        <field name="groups" eval="[(4, ref('contacts_company_restrict.group_contact_restrictions'))]"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="True"/><field name="perm_write" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="rule_rc_read_uid1_2_res_partner_industry" model="ir.rule">
+        <field name="name">[RC] UID=1,2 (read) - Industrias</field>
+        <field name="model_id" ref="base.model_res_partner_industry"/>
+        <field name="groups" eval="[(4, ref('contacts_company_restrict.group_contact_restrictions'))]"/>
+        <field name="domain_force">[('create_uid', 'in', [1, 2])]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="False"/><field name="perm_write" eval="False"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- ===== Países (res.country) ===== -->
+    <record id="rule_rc_full_own_res_country" model="ir.rule">
+        <field name="name">[RC] Propios (full) - Países</field>
+        <field name="model_id" ref="base.model_res_country"/>
+        <field name="groups" eval="[(4, ref('contacts_company_restrict.group_contact_restrictions'))]"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="True"/><field name="perm_write" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="rule_rc_read_uid1_2_res_country" model="ir.rule">
+        <field name="name">[RC] UID=1,2 (read) - Países</field>
+        <field name="model_id" ref="base.model_res_country"/>
+        <field name="groups" eval="[(4, ref('contacts_company_restrict.group_contact_restrictions'))]"/>
+        <field name="domain_force">[('create_uid', 'in', [1, 2])]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="False"/><field name="perm_write" eval="False"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- ===== Estados/Departamentos (res.country.state) ===== -->
+    <record id="rule_rc_full_own_res_country_state" model="ir.rule">
+        <field name="name">[RC] Propios (full) - Estados/Departamentos</field>
+        <field name="model_id" ref="base.model_res_country_state"/>
+        <field name="groups" eval="[(4, ref('contacts_company_restrict.group_contact_restrictions'))]"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="True"/><field name="perm_write" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="rule_rc_read_uid1_2_res_country_state" model="ir.rule">
+        <field name="name">[RC] UID=1,2 (read) - Estados/Departamentos</field>
+        <field name="model_id" ref="base.model_res_country_state"/>
+        <field name="groups" eval="[(4, ref('contacts_company_restrict.group_contact_restrictions'))]"/>
+        <field name="domain_force">[('create_uid', 'in', [1, 2])]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="False"/><field name="perm_write" eval="False"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- ===== Grupo de país (res.country.group) ===== -->
+    <record id="rule_rc_full_own_res_country_group" model="ir.rule">
+        <field name="name">[RC] Propios (full) - Grupo de país</field>
+        <field name="model_id" ref="base.model_res_country_group"/>
+        <field name="groups" eval="[(4, ref('contacts_company_restrict.group_contact_restrictions'))]"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="True"/><field name="perm_write" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="rule_rc_read_uid1_2_res_country_group" model="ir.rule">
+        <field name="name">[RC] UID=1,2 (read) - Grupo de país</field>
+        <field name="model_id" ref="base.model_res_country_group"/>
+        <field name="groups" eval="[(4, ref('contacts_company_restrict.group_contact_restrictions'))]"/>
+        <field name="domain_force">[('create_uid', 'in', [1, 2])]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="False"/><field name="perm_write" eval="False"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- ===== Bancos (res.bank) ===== -->
+    <record id="rule_rc_full_own_res_bank" model="ir.rule">
+        <field name="name">[RC] Propios (full) - Bancos</field>
+        <field name="model_id" ref="base.model_res_bank"/>
+        <field name="groups" eval="[(4, ref('contacts_company_restrict.group_contact_restrictions'))]"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="True"/><field name="perm_write" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="rule_rc_read_uid1_2_res_bank" model="ir.rule">
+        <field name="name">[RC] UID=1,2 (read) - Bancos</field>
+        <field name="model_id" ref="base.model_res_bank"/>
+        <field name="groups" eval="[(4, ref('contacts_company_restrict.group_contact_restrictions'))]"/>
+        <field name="domain_force">[('create_uid', 'in', [1, 2])]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="False"/><field name="perm_write" eval="False"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- ===== Cuentas bancarias (res.partner.bank) ===== -->
+    <record id="rule_rc_full_own_res_partner_bank" model="ir.rule">
+        <field name="name">[RC] Propios (full) - Ctas bancarias</field>
+        <field name="model_id" ref="base.model_res_partner_bank"/>
+        <field name="groups" eval="[(4, ref('contacts_company_restrict.group_contact_restrictions'))]"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="True"/><field name="perm_write" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="rule_rc_read_uid1_2_res_partner_bank" model="ir.rule">
+        <field name="name">[RC] UID=1,2 (read) - Ctas bancarias</field>
+        <field name="model_id" ref="base.model_res_partner_bank"/>
+        <field name="groups" eval="[(4, ref('contacts_company_restrict.group_contact_restrictions'))]"/>
+        <field name="domain_force">[('create_uid', 'in', [1, 2])]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="False"/><field name="perm_write" eval="False"/><field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- ===== Tipos de identificación LATAM (l10n_latam_base) =====
+         Descomenta si usas el módulo l10n_latam_base
+    -->
+    <!--
+    <record id="rule_admin_all_l10n_latam_identification_type" model="ir.rule">
+        <field name="name">[ADMIN] Todo - Tipo identificación</field>
+        <field name="model_id" ref="l10n_latam_base.model_l10n_latam_identification_type"/>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="True"/><field name="perm_write" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_rc_full_own_l10n_latam_identification_type" model="ir.rule">
+        <field name="name">[RC] Propios (full) - Tipo identificación</field>
+        <field name="model_id" ref="l10n_latam_base.model_l10n_latam_identification_type"/>
+        <field name="groups" eval="[(4, ref('contacts_company_restrict.group_contact_restrictions'))]"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="True"/><field name="perm_write" eval="True"/><field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="rule_rc_read_uid1_2_l10n_latam_identification_type" model="ir.rule">
+        <field name="name">[RC] UID=1,2 (read) - Tipo identificación</field>
+        <field name="model_id" ref="l10n_latam_base.model_l10n_latam_identification_type"/>
+        <field name="groups" eval="[(4, ref('contacts_company_restrict.group_contact_restrictions'))]"/>
+        <field name="domain_force">[('create_uid', 'in', [1, 2])]</field>
+        <field name="perm_read" eval="True"/><field name="perm_create" eval="False"/><field name="perm_write" eval="False"/><field name="perm_unlink" eval="False"/>
+    </record>
+    -->
+
+</odoo>

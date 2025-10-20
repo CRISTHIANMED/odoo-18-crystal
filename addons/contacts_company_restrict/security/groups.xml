@@ -1,0 +1,6 @@
+<odoo>
+  <record id="group_restrict_company" model="res.groups">
+    <field name="name">Restringir creación de empresas</field>
+    <field name="category_id" ref="base.module_category_hidden"/>
+  </record>
+</odoo>
